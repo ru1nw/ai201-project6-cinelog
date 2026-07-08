@@ -60,9 +60,21 @@ for a recently watched movie, which might be useful in some cases, but
 alphabetical order is a more convenient choice for users in the long run.
 
 ## Comment 6 — Rebase
+
 **What conflicted:**
+
+-   the .gitignore in the main branch conflicted with the newly added one in
+    feature branch from milestone 1
+-   `WatchlistEntry` in `models.py` was removed after rebase
+
 **How I resolved it:**
-**How I verified no conflict remains:**
+
+-   I chose the .gitignore from the main branch as it also ignored
+    `.pytest_cache/`
+-   added `WatchlistEntry` back
+
+**How I verified no conflict remains:** no conflict markers remain, and all
+testcases pass
 
 ## PR Description
 <!-- Written at the end — feature overview, design decisions, manual testing steps -->
