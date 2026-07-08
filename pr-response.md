@@ -13,8 +13,17 @@ name and all its references to `add_to_watchlist`.
 result.
 
 ## Comment 2 — Deduplication
-**What I did:**
-**How I verified:**
+
+**What I did:** in `collection_service.py`, I found the logic that handled
+duplication and copied that block of code along with the Exception it raised to
+`add_to_watchlist` in `watchlist_service.py`, then I rewrote the names and
+strings so they describe watchlists instead of collections.
+
+**How I verified:** a search of "collection" in `watchlist_service.py` returns
+no results that needed to be renamed. the model for `WatchlistEntry` has the
+same `user_id` and `film_id` fields as `CollectionEntry`, so the arguments
+passed into `filter_by` can remain the same. functionality check is implemented
+in the next commit.
 
 ## Comment 3 — Missing test
 **What I did:**
