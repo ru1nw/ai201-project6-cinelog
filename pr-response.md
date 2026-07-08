@@ -34,9 +34,17 @@ in the next commit.
 except the one that tests watchlist order, which will be handled in a later fix.
 
 ## Comment 4 — Default visibility
-**My position:**
-**Reasoning:**
-**Tradeoff acknowledged:**
+
+**My position:** `public=True` is an intentional choice that aligns with the
+purpose of the program.
+
+**Reasoning:** `public=True` default allows the user and anyone who wants to
+learn more about the user a chance to view their watchlist. this system is
+designed to be a community, and defaulting to public is important to facilitate
+conversation.
+
+**Tradeoff acknowledged:** some users might want some or all entries on their
+watchlist be private, and that requires an extra step.
 
 ## Comment 5 — Sort order
 **My position:**
