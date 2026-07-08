@@ -26,8 +26,12 @@ passed into `filter_by` can remain the same. functionality check is implemented
 in the next commit.
 
 ## Comment 3 — Missing test
-**What I did:**
-**How I verified:**
+
+**What I did:** I copied all tests from `test_collection.py` to
+`test_watchlist.py` and rewrote all the collection references to watchlist.
+
+**How I verified:** all testcases for both collection and watchlist passes,
+except the one that tests watchlist order, which will be handled in a later fix.
 
 ## Comment 4 — Default visibility
 **My position:**
