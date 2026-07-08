@@ -1,7 +1,15 @@
 # PR Response Doc — CineLog Watchlist Feature
 
 ## AI Usage
-<!-- Fill in at the end — how you used AI tools during this project -->
+
+I asked Claude to read `pr-response.md`, `watchlist_service.py`, and
+`test_watchlist.py` and review the git commit history, then I asked it describe
+the PR to me such as the added features and design decisions. Using this
+information, I asked Claude to write the PR description.
+
+Claude generated manual testing steps by running the app and creating users and
+films through API endpoints, but there are no API endpoints to do that. So I
+rewrote the testing steps section to use only the pytest file for testing.
 
 ## Comment 1 — Rename
 
@@ -81,4 +89,53 @@ testcases pass
 ![git log](gitlog.png)
 
 ## PR Description
-<!-- Written at the end — feature overview, design decisions, manual testing steps -->
+
+### Feature overview
+
+This PR adds a **watchlist** feature to CineLog, letting a user save films they
+want to watch later, separate from their existing "collection" of films
+they've already watched. It adds:
+
+-   a `WatchlistEntry` model (`user_id`, `film_id`, `date_added`, `public`)
+-   `add_to_watchlist(user_id, film_id)` in `watchlist_service.py`, which
+    creates an entry, rejects films that don't exist (`FilmNotFoundError`),
+    and rejects duplicate entries (`AlreadyInWatchlistError`)
+-   `get_watchlist(user_id)` in `watchlist_service.py`, which returns a
+    user's watchlist films sorted alphabetically by title
+-   two endpoints in `routes/watchlist/watchlist.py`:
+    -   `POST /watchlist/<user_id>/add` — body `{ "film_id": <str> }`, adds a
+        film to the user's watchlist
+    -   `GET /watchlist/<user_id>` — returns the user's watchlist
+
+### Design decisions
+
+-   **Default visibility (`public=True`)** — new watchlist entries default
+    to public. CineLog is built around a community of users, and a public
+    default lets other users discover what someone is planning to watch
+    without an extra step. The tradeoff is that users who want a private
+    watchlist have to opt out entry-by-entry. See
+    [Comment 4 — Default visibility](#comment-4--default-visibility) for the
+    full reasoning.
+-   **Sort order (alphabetical by title)** — `get_watchlist` orders entries
+    alphabetically rather than by recency. As a watchlist grows, alphabetical
+    order makes it much easier to scan for a specific title, since users
+    don't reliably remember when they added something. See
+    [Comment 5 — Sort order](#comment-5--sort-order) for the full reasoning
+    and the recency-order tradeoff.
+
+### Manual testing steps
+
+Run the automated suite to confirm everything is covered:
+`pytest tests/test_watchlist.py -v`.
+
+-   `test_add_to_watchlist_creates_entry` tests creating a watchlist entry for
+    a sample user and a sample movie.
+-   `test_add_to_watchlist_duplicate_raises` tests raising
+    `AlreadyInWatchlistError` when the sample user attempts to add the same
+    movie into their watchlist more than once.
+-   `test_add_to_watchlist_nonexistent_film_raises` tests raising
+    `FilmNotFoundError` when the sample user attempts to add a non-existent
+    movie into their watchlist.
+-   `test_get_watchlist_returns_alphabetical` tests getting the sample user's
+    watchlist and check if the watchlist lists out movies in alphabetical order
+    when there are more than 1 movie in the watchlist.
