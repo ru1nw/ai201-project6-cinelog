@@ -47,9 +47,17 @@ conversation.
 watchlist be private, and that requires an extra step.
 
 ## Comment 5 — Sort order
-**My position:**
-**Reasoning:**
-**Engagement with reviewer's point:**
+
+**My position:** alphabetical order is easier to find a specific entry
+
+**Reasoning:** as the list of entries grows, it will quickly become unmanagable
+to skim through the list and quickly find an entry. alphabetical order makes
+searching an entry for a specific movie easier, as not everyone remember when
+they watched it.
+
+**Engagement with reviewer's point:** ordering by recency is easier when looking
+for a recently watched movie, which might be useful in some cases, but
+alphabetical order is a more convenient choice for users in the long run.
 
 ## Comment 6 — Rebase
 **What conflicted:**
