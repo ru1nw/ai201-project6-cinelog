@@ -76,5 +76,9 @@ alphabetical order is a more convenient choice for users in the long run.
 **How I verified no conflict remains:** no conflict markers remain, and all
 testcases pass
 
+## git log
+
+![git log](gitlog.png)
+
 ## PR Description
 <!-- Written at the end — feature overview, design decisions, manual testing steps -->
